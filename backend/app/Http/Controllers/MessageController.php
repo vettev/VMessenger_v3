@@ -33,7 +33,7 @@ class MessageController extends Controller
         }
         $conversationId = $request->input('conversation_id');
         $body = $request->input('body');
-        
+
         User::findOrFail($senderId);
         User::findOrFail($recipientId);
         $conversation = Conversation::findOrFail($conversationId);
