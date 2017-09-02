@@ -46,6 +46,6 @@ class User extends Authenticatable
         return $this->conversations()->where('direct', '=', $direct)
             ->whereHas('participants', function($query) use ($userId)  {
                 $query->where('user_id', '=', $userId);
-            })->first();
+            })->with('messages')->first();
     }
 }

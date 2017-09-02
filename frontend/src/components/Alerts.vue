@@ -5,8 +5,8 @@
         value="true" 
         v-for="alert in successAlerts"
         :key="alert.id"
-        dismissible 
-        v-model="alert.content"
+        dismissible
+        v-model="alert.show"
         transition="slide-y-transition"
         >
           {{ alert.content }}
@@ -18,7 +18,7 @@
         v-for="alert in infoAlerts"
         :key="alert.id"
         dismissible
-        v-model="alert.content"
+        v-model="alert.show"
         transition="slide-y-transition"
         >
           {{ alert.content }}
@@ -30,7 +30,7 @@
         v-for="alert in errorAlerts"
         :key="alert.id"
         dismissible
-        v-model="alert.content"
+        v-model="alert.show"
         transition="slide-y-transition"
         >
           {{ alert.content }}
@@ -49,13 +49,13 @@
         },
         computed: {
             successAlerts() {
-                return this.$store.getters.getAlertsByType('success');
+                return this.$store.getters.alertsByType('success');
             },
             infoAlerts() {
-                return this.$store.getters.getAlertsByType('info');
+                return this.$store.getters.alertsByType('info');
             },
             errorAlerts() {
-                return this.$store.getters.getAlertsByType('error');
+                return this.$store.getters.alertsByType('error');
             }
         },
     }

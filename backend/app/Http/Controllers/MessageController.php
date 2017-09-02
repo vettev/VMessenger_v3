@@ -20,7 +20,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'sender_id' => 'required|integer',
+            'sender_id' => 'required|integer|different:recipient_id',
             'recipient_id' => 'required|integer',
             'conversation_id' => 'required|integer',
             'body' => 'required'
@@ -28,9 +28,6 @@ class MessageController extends Controller
 
         $senderId = $request->input('sender_id');
         $recipientId = $request->input('recipient_id');
-        if($senderId === $recipientId) {
-            return response()->json(['message' => 'Recipient could not be sender'], 422);
-        }
         $conversationId = $request->input('conversation_id');
         $body = $request->input('body');
 

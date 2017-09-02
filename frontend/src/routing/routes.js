@@ -1,4 +1,4 @@
-import Home from './../components/Home.vue';
+import Home from '../components/home/Home.vue';
 import Register from './../components/auth/Register.vue';
 
 const routes = [

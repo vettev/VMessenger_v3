@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -12,7 +11,7 @@ class ConversationController extends Controller
     public function get(Request $request)
     {
         $this->validate($request, [
-            'sender_id' => 'required|integer',
+            'sender_id' => 'required|integer|different:recipient_id',
             'recipient_id' => 'required|integer'
         ]);
 

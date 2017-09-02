@@ -21,6 +21,7 @@ Route::resource('user', 'UserController', ['only' => ['show', 'update', 'destroy
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
+Route::get('/user', 'AuthController@getUser');
 
 Route::post('/message', 'MessageController@store');
 
