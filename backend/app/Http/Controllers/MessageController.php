@@ -16,7 +16,7 @@ class MessageController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('JWTAuth');
+        $this->middleware('jwt.auth');
     }
 
     /**
