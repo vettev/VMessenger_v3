@@ -27,11 +27,17 @@
             }
         },
         methods: {
+            setLoading(payload) {
+              this.$store.dispatch('setLoading', payload)
+            },
             login() {
+                this.setLoading(true);
+                this.$store.dispatch('clearAlerts');
                 this.$http.post('login', {email: this.email, password: this.password}).then(
                     response => {
                         this.$store.dispatch('setUser', { user: response.body.user, token: response.body.token});
                         this.$store.dispatch('addAlert', {content: 'Login successful', type: "success"});
+                        this.setLoading(false);
                     },
                     error => {
                         for(let loginError in error.body) {
@@ -44,6 +50,7 @@
                                 this.$store.dispatch('addAlert', {content: errors, type: "error"});
                             }
                         }
+                        this.setLoading(false);
                     }
                 );
             }

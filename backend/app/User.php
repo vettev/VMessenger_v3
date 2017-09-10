@@ -36,11 +36,27 @@ class User extends Authenticatable
         $this->attributes["password"] = bcrypt($val);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function conversations()
     {
         return $this->belongsToMany('App\Conversation', 'conversation_user', 'user_id', 'conversation_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact', 'owner_id');
+    }
+
+    /**
+     * @param $direct
+     * @param $userId
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
     public function conversationByUserId($direct, $userId)
     {
         return $this->conversations()->where('direct', '=', $direct)

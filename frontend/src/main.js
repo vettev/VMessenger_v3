@@ -13,11 +13,13 @@ Vue.use(VueResource);
 Vue.http.options.root = "http://localhost:8000/api/v1";
 Vue.http.headers.common['Content-Type'] = 'application/json';
 Vue.http.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-//Vue.$http.headers.common['Authorization'] = 'Bearer ' + store.getters.getUserToken();
 
 new Vue({
-  el: '#app',
-  render: h => h(App),
-  router,
-  store
+    el: '#app',
+    render: h => h(App),
+    router,
+    store,
+    created() {
+        store.dispatch('loadUser');
+    }
 });

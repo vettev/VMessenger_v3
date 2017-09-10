@@ -1,10 +1,9 @@
 <template>
-    <v-container fluid id="home">
+    <v-container fluid id="dashboard">
         <v-layout>
-            <v-flex md6 offset-md3>
-                <p class="grey--text text--lighten-1 text-center">
-                    You are logged in
-                </p>
+            <v-flex md4>
+            </v-flex>
+            <v-flex md8>
             </v-flex>
         </v-layout>
     </v-container>

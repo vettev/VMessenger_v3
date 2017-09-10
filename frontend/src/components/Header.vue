@@ -4,7 +4,6 @@
                 temporary
                 v-model="drawer"
                 :mini-variant.sync="mini"
-                dark
                 overflow
                 fixed
                 class="hidden-md-and-up">
@@ -44,11 +43,21 @@
                     <span class="ml-1">{{ item.title }}</span>
                 </v-btn>
                 <v-btn
+                v-if="isUserLogged"
+                @click="logout()"
+                flat
+                class="blue--text">
+                    <v-icon class="blue--text">power_settings_new</v-icon>
+                    <span class="ml-1">Logout</span>
+                </v-btn>
+                <v-btn
                     @click="changeTheme"
                     flat
                     v-tooltip:bottom="{ html: 'Change theme' }"
-                    class="blue--text">
-                    <v-icon class="blue--text">compare_arrows</v-icon></v-btn>
+                    class="blue--text"
+                    v-if="isUserLogged">
+                    <v-icon class="blue--text">compare_arrows</v-icon>
+                </v-btn>
             </v-toolbar-items>
         </v-toolbar>
     </v-container>
@@ -60,20 +69,40 @@
             return {
                 drawer: false,
                 mini: false,
-                title: 'VMessenger'
+                title: 'VMessenger',
+                theme: 'dark',
             }
         },
         computed: {
+            isUserLogged() {
+                return this.$store.getters.isUserLogged;
+            },
             items() {
                 let items = [
                     { icon: 'assignment', title: 'Register', link: '/register' },
                 ];
+                if(this.isUserLogged) {
+                    items = [
+                    ];
+                }
                 return items;
             }
         },
         methods: {
             changeTheme() {
-
+                let app = document.getElementById('app');
+                if(this.theme == 'dark') {
+                    app.classList.remove('application--dark');
+                    app.classList.add('application--light');
+                    this.theme = 'light';
+                } else if(this.theme == 'light') {
+                    app.classList.remove('application--light');
+                    app.classList.add('application--dark');
+                    this.theme = 'dark';
+                }
+            },
+            logout() {
+                this.$store.dispatch('logout');
             }
         }
     }

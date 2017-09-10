@@ -7,18 +7,21 @@ export default {
             commit('removeAlert', payload.id)
         }, 5000);*/
     },
-    setUser: ({commit}, payload) => {
-        commit('setUser', payload.user);
-        commit('setToken', payload.token);
+    clearAlerts: ({commit}) => {
+        commit('clearAlerts');
+    },
+    setUser: (state, payload) => {
+        state.commit('setUser', payload.user);
+        state.dispatch('setToken', payload.token);
     },
     loadUser: (state) => {
-        state.commit('setLoading', true);
         let token = localStorage.getItem('token');
         if(token !== null && state.getters.isUserLogged === false) {
+            state.commit('setLoading', true);
             Vue.http.get('user?token=' + token).then(
                 response => {
                     state.commit('setUser', response.body.user);
-                    state.commit('setToken', token);
+                    state.dispatch('setToken', token);
                     state.commit('setLoading', false);
                 },
                 () => {
@@ -27,5 +30,17 @@ export default {
                 }
             );
         }
+    },
+    logout: (state) => {
+        state.commit('setUser', null);
+        state.dispatch('setToken', null);
+        localStorage.removeItem('token');
+    },
+    setToken: ({commit}, payload) => {
+        commit('setToken', payload);
+        Vue.http.headers.common['Authorization'] = 'Bearer ' + payload;
+    },
+    setLoading: ({commit}, payload) => {
+        commit('setLoading', payload);
     }
 }

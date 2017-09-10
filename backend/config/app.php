@@ -236,7 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
-       'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+        'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
     ],
 
 ];

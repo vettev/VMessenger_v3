@@ -7,11 +7,14 @@ export default {
     removeAlert: (state, id) => {
         state.alerts.splice(id);
     },
+    clearAlerts: (state) => {
+        state.alerts = [];
+    },
     setLoading: (state, payload) => {
         state.loading = payload;
     },
     setUser: (state, payload) => {
-      state.user = payload.user;
+      state.user = payload;
     },
     setToken: (state, payload) => {
         localStorage.setItem("token", payload);

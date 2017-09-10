@@ -8,8 +8,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        alerts: [
-        ],
+        alerts: [],
         user: null,
         token: null,
         loading: false

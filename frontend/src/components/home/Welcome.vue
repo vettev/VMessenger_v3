@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid id="home">
+    <v-container fluid id="welcome">
         <v-layout>
             <v-flex md6 offset-md3>
                 <h2 slot="header" class="white--text text-center">Home</h2>

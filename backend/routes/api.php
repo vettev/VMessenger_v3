@@ -27,3 +27,7 @@ Route::post('/message', 'MessageController@store');
 
 Route::post('/conversation', 'ConversationController@get');
 Route::get('/conversation/{id}/messages', 'ConversationController@messages');
+
+Route::resource('contact', 'ContactController', ['only' => [
+    'index', 'store', 'update', 'destroy'
+]]);

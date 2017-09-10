@@ -16,7 +16,7 @@
         <v-footer v-show="!loading">
             <span>&copy; 2017</span>
         </v-footer>
-        <div id="loading-screen" v-if="loading">
+        <div id="loading-screen" v-if="loading" transition="fade-transition">
             <v-progress-circular indeterminate class="primary--text"></v-progress-circular>
         </div>
     </v-app>
@@ -29,15 +29,13 @@
   export default {
     data () {
       return {
+          theme: 'dark'
       }
     },
     computed: {
         loading() {
             return this.$store.getters.isLoading;
         }
-    },
-    created () {
-        this.$store.dispatch('loadUser');
     },
     components: {
         'app-alerts': Alerts,
@@ -55,5 +53,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background: rgba(black, 0.25);
     }
 </style>

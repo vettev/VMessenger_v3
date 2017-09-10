@@ -12,6 +12,14 @@ use App\Events\MessageSent;
 class MessageController extends Controller
 {
     /**
+     * MessageController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('JWTAuth');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

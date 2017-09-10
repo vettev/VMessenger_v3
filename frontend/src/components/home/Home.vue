@@ -17,9 +17,11 @@
             }
         },
         computed: {
+            isUserLogged() {
+                return this.$store.getters.isUserLogged;
+            },
             component() {
-                console.log('Home - component');
-                if(this.$store.getters.isUserLogged)
+                if(this.isUserLogged)
                     return 'app-dashboard';
                 else
                     return 'app-welcome';

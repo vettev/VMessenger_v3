@@ -8,6 +8,20 @@ use App\User;
 
 class ConversationController extends Controller
 {
+    /**
+     * ConversationController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('JWTAuth');
+    }
+
+    /**
+     * Get direct conversation by sender and recipient
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get(Request $request)
     {
         $this->validate($request, [
