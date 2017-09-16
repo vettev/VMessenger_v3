@@ -34,7 +34,7 @@
     },
     computed: {
         loading() {
-            return this.$store.getters.isLoading;
+            return this.$store.getters.isLoadingActive;
         }
     },
     components: {
@@ -54,5 +54,14 @@
         align-items: center;
         justify-content: center;
         background: rgba(black, 0.25);
+        animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 </style>

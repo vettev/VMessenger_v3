@@ -17,7 +17,10 @@ export default {
         else
             return false;
     },
-    isLoading(state) {
+    isLittleLoadingActive(state) {
+        return state.littleLoading;
+    },
+    isLoadingActive(state) {
         return state.loading;
     }
 }

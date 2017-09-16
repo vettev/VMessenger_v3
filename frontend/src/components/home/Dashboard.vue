@@ -4,6 +4,7 @@
             <v-flex md4>
             </v-flex>
             <v-flex md8>
+                <p>zalogowany</p>
             </v-flex>
         </v-layout>
     </v-container>

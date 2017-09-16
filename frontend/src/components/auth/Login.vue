@@ -10,7 +10,7 @@
                         <form @submit.prevent="login">
                             <v-text-field primary label="Email" autofocus v-model="email"></v-text-field>
                             <v-text-field primary label="Password" type="password" v-model="password"></v-text-field>
-                            <v-btn primary type="submit">Login</v-btn>
+                            <v-btn primary type="submit" :disabled="loading" :loading="loading">Login</v-btn>
                         </form>
                     </div>
                 </v-card>
@@ -26,33 +26,17 @@
                 password: ""
             }
         },
+        computed: {
+            loading() {
+                return this.$store.getters.isLittleLoadingActive;
+            }
+        },
         methods: {
             setLoading(payload) {
-              this.$store.dispatch('setLoading', payload)
+              this.$store.dispatch('setLoading', payload);
             },
             login() {
-                this.setLoading(true);
-                this.$store.dispatch('clearAlerts');
-                this.$http.post('login', {email: this.email, password: this.password}).then(
-                    response => {
-                        this.$store.dispatch('setUser', { user: response.body.user, token: response.body.token});
-                        this.$store.dispatch('addAlert', {content: 'Login successful', type: "success"});
-                        this.setLoading(false);
-                    },
-                    error => {
-                        for(let loginError in error.body) {
-                            let errors = error.body[loginError];
-                            if(Array.isArray(errors)) {
-                                for(let i = 0; i < errors.length; i++) {
-                                    this.$store.dispatch('addAlert', {content: errors[i], type: "error"});
-                                }
-                            } else {
-                                this.$store.dispatch('addAlert', {content: errors, type: "error"});
-                            }
-                        }
-                        this.setLoading(false);
-                    }
-                );
+                this.$store.dispatch('login', {email: this.email, password: this.password});
             }
         }
     }

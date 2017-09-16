@@ -5,13 +5,14 @@ export default {
         state.alerts.push(payload);
     },
     removeAlert: (state, id) => {
-        state.alerts.splice(id);
+        function findAlert(element) {
+            return (element.id === id)
+        }
+        let index = state.alerts.findIndex(findAlert);
+        state.alerts.splice(index, 1);
     },
     clearAlerts: (state) => {
         state.alerts = [];
-    },
-    setLoading: (state, payload) => {
-        state.loading = payload;
     },
     setUser: (state, payload) => {
       state.user = payload;
@@ -19,5 +20,11 @@ export default {
     setToken: (state, payload) => {
         localStorage.setItem("token", payload);
         state.token = payload;
-    }
+    },
+    setLoading: (state, payload) => {
+        state.loading = payload;
+    },
+    setLittleLoading: (state, payload) => {
+        state.littleLoading = payload;
+    },
 }

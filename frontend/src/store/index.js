@@ -11,7 +11,8 @@ const store = new Vuex.Store({
         alerts: [],
         user: null,
         token: null,
-        loading: false
+        loading: false,
+        littleLoading: false
     },
     getters,
     mutations,
