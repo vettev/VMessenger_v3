@@ -49,19 +49,30 @@ class User extends Authenticatable
      */
     public function contacts()
     {
-        return $this->hasMany('App\Contact', 'owner_id');
+        return $this->hasMany('App\Contact', 'owner_id')->with('user');
     }
 
     /**
-     * @param $direct
      * @param $userId
-     * @return \Illuminate\Database\Eloquent\Model|null|static
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function conversationByUserId($direct, $userId)
+    public function directConversationByUserId($userId)
     {
-        return $this->conversations()->where('direct', '=', $direct)
+        return $this->conversations()->where('direct', '=', true)
             ->whereHas('participants', function($query) use ($userId)  {
                 $query->where('user_id', '=', $userId);
             })->with('messages')->first();
+    }
+
+    /**
+     * @param $userId
+     *
+     * @return bool
+     */
+    public function hasUserInContacts($userId)
+    {
+        $contactCount =  $this->contacts()->where('user_id', '=', $userId)->count();
+
+        return $contactCount > 0;
     }
 }

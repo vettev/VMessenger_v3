@@ -8,6 +8,21 @@ export default {
     user(state) {
         return state.user;
     },
+    contacts(state) {
+        if(state.user)
+            return state.user.contacts;
+        else
+            return [];
+    },
+    conversations(state) {
+        return state.conversations;
+    },
+    conversationsCount(state) {
+        return state.conversations.length;
+    },
+    conversationExists: (state, getters) => (recipientId) => {
+        return state.conversations[0].user.id == recipientId;
+    },
     token(state) {
       return state.token;
     },

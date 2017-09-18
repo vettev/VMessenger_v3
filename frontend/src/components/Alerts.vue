@@ -38,13 +38,9 @@
     </div>
 </template>
 <script>
-    import { mapActions } from 'vuex';
-    import { mapGetters } from 'vuex'
-
     export default {
         data() {
             return {
-                alert: true,
             }
         },
         computed: {

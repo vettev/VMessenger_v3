@@ -14,6 +14,12 @@ export default {
     clearAlerts: (state) => {
         state.alerts = [];
     },
+    addConversation: (state, payload) => {
+        state.conversations.push(payload);
+    },
+    clearConversations: (state) => {
+        state.conversations = [];
+    },
     setUser: (state, payload) => {
       state.user = payload;
     },

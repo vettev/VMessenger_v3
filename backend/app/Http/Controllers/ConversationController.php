@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conversation;
 use Illuminate\Http\Request;
 use App\User;
+use JWTAuth;
 
 class ConversationController extends Controller
 {
@@ -25,18 +26,20 @@ class ConversationController extends Controller
     public function get(Request $request)
     {
         $this->validate($request, [
-            'sender_id' => 'required|integer|different:recipient_id',
             'recipient_id' => 'required|integer'
         ]);
 
-        $sender = User::findOrFail($request->input('sender_id'));
+        $sender = JWTAuth::parseToken()->authenticate();
         User::findOrFail($request->input('recipient_id'));
-        $conversation = $sender->conversationByUserId(true, $request->input('recipient_id'));
+        if($sender->id == $request->input('recipient_id')) {
+            return response()->json(['message' => 'Recipient cannot be sender'], 422);
+        }
+        $conversation = $sender->directConversationByUserId($request->input('recipient_id'));
         if(!$conversation) {
             $conversation = Conversation::create([]);
             $conversation->participants()->attach([
                 $request->input('recipient_id'),
-                $request->input('sender_id')
+                $sender->id
             ]);
         }
 

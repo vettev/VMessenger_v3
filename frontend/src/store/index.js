@@ -9,6 +9,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         alerts: [],
+        conversations: [],
         user: null,
         token: null,
         loading: false,

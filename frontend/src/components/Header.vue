@@ -21,6 +21,26 @@
                         <v-list-tile-title v-text="item.title"></v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile @click="logout" v-if="isUserLogged">
+                    <v-list-tile-action>
+                        <v-icon>exit_to_app</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Logout</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+        </v-navigation-drawer>
+        <v-navigation-drawer
+                temporary
+                v-model="drawerRight"
+                overflow
+                fixed
+                right
+                class="hidden-md-and-up"
+                v-if="isUserLogged">
+            <v-list class="pt-0">
+                <app-contacts></app-contacts>
             </v-list>
         </v-navigation-drawer>
         <v-toolbar fixed>
@@ -31,6 +51,9 @@
                 <v-toolbar-title v-text="title"></v-toolbar-title>
             </router-link>
             <v-spacer></v-spacer>
+            <div class="hidden-md-and-up" v-if="isUserLogged">
+                <v-btn flat @click.stop="drawerRight = !drawerRight"><v-icon>people</v-icon></v-btn>
+            </div>
             <v-toolbar-items class="ml-3 hidden-sm-and-down">
                 <v-btn
                     flat
@@ -47,7 +70,7 @@
                 @click="logout()"
                 flat
                 class="blue--text">
-                    <v-icon class="blue--text">power_settings_new</v-icon>
+                    <v-icon class="blue--text">exit_to_app</v-icon>
                     <span class="ml-1">Logout</span>
                 </v-btn>
                 <v-btn
@@ -64,14 +87,20 @@
 </template>
 
 <script>
+    import Contacts from './user/Contacts.vue';
+
     export default {
         data() {
             return {
                 drawer: false,
+                drawerRight: true,
                 mini: false,
                 title: 'VMessenger',
                 theme: 'dark',
             }
+        },
+        components: {
+            'app-contacts': Contacts
         },
         computed: {
             isUserLogged() {

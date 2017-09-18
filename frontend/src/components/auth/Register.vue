@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid id="registration" class="component">
+    <div id="registration" class="component">
         <v-layout row wrap justify-space-around>
             <v-flex md6>
                 <v-card>
@@ -18,7 +18,7 @@
                 </v-card>
             </v-flex>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 <script>
     export default {

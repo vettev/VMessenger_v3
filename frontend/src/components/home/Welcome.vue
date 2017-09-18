@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid id="welcome">
+    <div id="welcome">
         <v-layout>
             <v-flex md6 offset-md3>
                 <h2 slot="header" class="white--text text-center">Home</h2>
@@ -7,7 +7,7 @@
             </v-flex>
         </v-layout>
         <app-login></app-login>
-    </v-container>
+    </div>
 </template>
 <script>
     import Login from '../auth/Login.vue';

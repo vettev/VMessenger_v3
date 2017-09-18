@@ -20,6 +20,29 @@ export default {
             }
         }
     },
+    addConversation: (state, payload) => {
+        if(state.getters.conversationsCount > 0) {
+            if (state.getters.conversationExists(payload.id)) {
+                return null;
+            }
+            else {
+                state.commit('clearConversations');
+            }
+        }
+        state.commit('setLittleLoading', true);
+        Vue.http.post('conversation', { recipient_id: payload.id }).then(
+            response => {
+                let conversation = response.body.conversation;
+                conversation.user = payload
+                state.commit('addConversation', conversation);
+                state.commit('setLittleLoading', false);
+            },
+            error => {
+               console.log(error);
+                state.commit('setLittleLoading', false);
+            }
+        )
+    },
     clearAlerts: ({commit}) => {
         commit('clearAlerts');
     },

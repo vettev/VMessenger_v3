@@ -1,7 +1,7 @@
 <template>
-    <v-container fluid id="home">
+    <div id="home">
         <component :is="component"></component>
-    </v-container>
+    </div>
 </template>
 <script>
     import Dashboard from './Dashboard.vue';

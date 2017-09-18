@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid id="login" class="component mt-4">
+    <div id="login" class="component mt-4">
         <v-layout row wrap justify-space-around>
             <v-flex md6>
                 <v-card transition="slide-y-transition">
@@ -16,7 +16,7 @@
                 </v-card>
             </v-flex>
         </v-layout>
-    </v-container>
+    </div>
 </template>
 <script>
     export default {

@@ -1,8 +1,8 @@
 {
-  "name": "vuetify",
-  "description": "Vuetify learn",
+  "name": "VMessenger",
+  "description": "VMessenger frontend",
   "version": "1.0.0",
-  "author": "d.grzedzielski <d.grzedzielski@ideo.pl>",
+  "author": "Dominik Grzędzielski",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",

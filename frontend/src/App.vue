@@ -1,19 +1,13 @@
 <template>
     <v-app dark>
-        <app-header v-show="!loading"></app-header>
-        <main v-show="!loading">
-            <v-container fluid dark>
-                <v-layout row wrap>
-                    <v-flex xs12>
-                        <app-alerts></app-alerts>
-                    </v-flex>
-                    <v-flex xs12 dark>
-                        <router-view></router-view>
-                    </v-flex>
-                </v-layout>
+        <app-header v-if="!loading"></app-header>
+        <main v-if="!loading">
+            <v-container fluid>
+                <app-alerts></app-alerts>
+                <router-view></router-view>
             </v-container>
         </main>
-        <v-footer v-show="!loading">
+        <v-footer v-if="!loading">
             <span>&copy; 2017</span>
         </v-footer>
         <div id="loading-screen" v-if="loading" transition="fade-transition">
