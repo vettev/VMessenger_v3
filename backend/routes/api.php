@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 });*/
 
 Route::resource('user', 'UserController', ['only' => ['show', 'update', 'destroy']]);
+Route::post('/search', 'UserController@search');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');

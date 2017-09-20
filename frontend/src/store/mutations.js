@@ -33,4 +33,7 @@ export default {
     setLittleLoading: (state, payload) => {
         state.littleLoading = payload;
     },
+    setDialog: (state, payload) => {
+        state.dialog = payload;
+    }
 }

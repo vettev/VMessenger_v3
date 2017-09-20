@@ -13,7 +13,8 @@ const store = new Vuex.Store({
         user: null,
         token: null,
         loading: false,
-        littleLoading: false
+        littleLoading: false,
+        dialog: false,
     },
     getters,
     mutations,

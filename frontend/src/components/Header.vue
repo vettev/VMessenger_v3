@@ -55,6 +55,9 @@
                 <v-btn flat @click.stop="drawerRight = !drawerRight"><v-icon>people</v-icon></v-btn>
             </div>
             <v-toolbar-items class="ml-3 hidden-sm-and-down">
+                <form action="#" @submit.prevent="searchUsers">
+                    <v-text-field label="Search users" v-model="searchQuery"></v-text-field>
+                </form>
                 <v-btn
                     flat
                     v-for="item in items"
@@ -83,11 +86,13 @@
                 </v-btn>
             </v-toolbar-items>
         </v-toolbar>
+        <app-search-results :dialog="searchDialog" :results="searchResults"></app-search-results>
     </v-container>
 </template>
 
 <script>
     import Contacts from './user/Contacts.vue';
+    import SearchResults from './SearchResults.vue';
 
     export default {
         data() {
@@ -97,10 +102,14 @@
                 mini: false,
                 title: 'VMessenger',
                 theme: 'dark',
+                searchQuery: '',
+                searchDialog: false,
+                searchResults: [],
             }
         },
         components: {
-            'app-contacts': Contacts
+            'app-contacts': Contacts,
+            'app-search-results': SearchResults
         },
         computed: {
             isUserLogged() {
@@ -132,6 +141,15 @@
             },
             logout() {
                 this.$store.dispatch('logout');
+            },
+            searchUsers() {
+                this.$http.post('search', {search_query: this.searchQuery}).then(
+                    response => {
+                        this.searchQuery = '';
+                        this.$store.dispatch('setDialog', true);
+                    }, error => {
+                        console.log(error);
+                    });
             }
         }
     }

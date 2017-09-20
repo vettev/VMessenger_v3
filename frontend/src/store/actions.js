@@ -117,5 +117,8 @@ export default {
     },
     setLittleLoading: ({commit}, payload) => {
         commit('setLittleLoading', payload);
+    },
+    setDialog: ({commit}, payload) => {
+        commit('setDialog', payload);
     }
 }

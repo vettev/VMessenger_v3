@@ -8,6 +8,11 @@ use JWTAuth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -40,5 +45,19 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate($request, [
+            'search_query' => 'required'
+        ]);
+
+        $users = User::where('name', 'like', "%{$request->input('search_query')}%")->get();
+        if(count($users) > 0) {
+            return response()->json(compact('users'), 200);
+        }
+
+        return response()->json(['message' => 'No user resulsts'], 200);
     }
 }

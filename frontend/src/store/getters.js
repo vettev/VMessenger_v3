@@ -37,5 +37,8 @@ export default {
     },
     isLoadingActive(state) {
         return state.loading;
+    },
+    isDialogOpen(state) {
+        return state.dialog;
     }
 }
