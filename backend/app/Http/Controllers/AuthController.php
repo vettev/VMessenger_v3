@@ -25,10 +25,10 @@ class AuthController extends Controller
         } catch ( JWTException $e) {
             return response()->json(["error" => "Could not create token"], 500);
         }
-        $user = User::where('email', '=', $request->input('email'))
-            ->with('contacts')->first();
+        $user = User::where('email', '=', $request->input('email'))->first();
+        $contacts = $user->contacts()->get();
 
-        return response()->json(compact('user', 'token'), 200);
+        return response()->json(compact('user', 'token', 'contacts'), 200);
     }
 
     public function register(Request $request)
@@ -63,8 +63,8 @@ class AuthController extends Controller
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $user->contacts = $user->contacts;
+        $contacts = $user->contacts()->get();
 
-        return response()->json(compact('user'));
+        return response()->json(compact('user', 'contacts'));
     }
 }

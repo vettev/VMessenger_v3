@@ -2,7 +2,7 @@
     <v-list-tile avatar>
         <v-list-tile-title>{{ result.name }}</v-list-tile-title>
         <v-list-tile-action>
-            <v-btn success class="pa-2" @click="addToContacts()" :disabled="loading" :loading="loading" >
+            <v-btn success @click="addToContacts" :disabled="loading" :loading="loading" v-if="displayButton">
                 <span>Add to contacts</span>
             </v-btn>
         </v-list-tile-action>
@@ -15,6 +15,10 @@
             return {}
         },
         computed: {
+            displayButton() {
+                return this.$store.getters.hasUserInContacts(this.result.id) == false
+                && this.result.id !== this.$store.getters.user.id ;
+            },
             loading() {
                 return this.$store.getters.isLittleLoadingActive;
             }

@@ -4,16 +4,16 @@
             <v-dialog
                 v-model="dialog"
                 transition="dialog-bottom-transition"
-                :overlay=true
+                :overlay="$vuetify.breakpoint.mdAndUp"
                 absolute
                 width="60%"
                 :fullscreen="$vuetify.breakpoint.smAndDown">
                 <v-card>
                     <v-toolbar class="primary">
-                            <v-btn icon @click.native="dialog = false" dark>
+                        <v-btn icon @click.native="dialog = false" dark>
                                 <v-icon>close</v-icon>
-                            </v-btn>
-                            <v-toolbar-title>Search results</v-toolbar-title>
+                        </v-btn>
+                        <v-toolbar-title>Search results</v-toolbar-title>
                         </v-toolbar>
                         <v-spacer></v-spacer>
                         <v-list two-line>
@@ -42,7 +42,7 @@
                     return this.$store.getters.isDialogOpen;
                 },
                 set(value) {
-                    this.$store.dispatch('setDialog', value);
+                    this.$store.commit('setDialog', value);
                 }
             }
         },

@@ -28,11 +28,6 @@
                 return this.$store.getters.contacts;
             }
         },
-        methods: {
-            openConversation() {
-                console.log('opening conversation');
-            }
-        }
     }
 </script>
 <style>

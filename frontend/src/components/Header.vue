@@ -100,7 +100,7 @@
 
 <script>
     import Contacts from './user/Contacts.vue';
-    import SearchResults from './SearchResults.vue';
+    import SearchResults from './search/SearchResults.vue';
 
     export default {
         data() {
@@ -151,21 +151,23 @@
             },
             searchUsers() {
                 this.searchResults = [];
-                this.$http.post('search', {search_query: this.searchQuery}).then(
-                    response => {
-                        this.searchQuery = '';
+                if(this.searchQuery) {
+                    this.$http.post('search', {search_query: this.searchQuery}).then(
+                        response => {
+                            this.searchQuery = '';
 
-                        if(this.drawer)
-                            this.drawer = false;
+                            if(this.drawer)
+                                this.drawer = false;
 
-                        if(response.body.users.length > 0)
-                            this.searchResults = response.body.users;
+                            if(response.body.users.length > 0)
+                                this.searchResults = response.body.users;
 
-                        this.$store.dispatch('setDialog', true);
-                    }, error => {
-                        console.log(error);
-                    }
-                );
+                            this.$store.commit('setDialog', true);
+                        }, error => {
+                            this.$store.dispatch('addAlert', { type: 'error', content: 'Error. Cannot handle search request'});
+                        }
+                    );
+                }
             }
         }
     }
