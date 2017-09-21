@@ -54,4 +54,11 @@ class ContactController extends Controller
 
         return response()->json(['message' => 'Contact saved', 'contact' => $contact], 201);
     }
+
+    public function destroy($contactId)
+    {
+        Contact::find($contactId)->delete();
+
+        return response()->json(['message' => 'Contact deleted']);
+    }
 }

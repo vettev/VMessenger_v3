@@ -174,6 +174,7 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Vinkla\Pusher\PusherServiceProvider::class,
+        JD\Cloudder\CloudderServiceProvider::class,
 
 
 
@@ -237,6 +238,7 @@ return [
         'Pusher' => Vinkla\Pusher\Facades\Pusher::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
     ],
 
 ];
