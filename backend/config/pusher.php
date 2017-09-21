@@ -40,9 +40,9 @@ return [
     'connections' => [
 
         'main' => [
-            'auth_key' => 'a1967b216298382ddcbf',
-            'secret' => '09fee939410b17ebd64c',
-            'app_id' => '284077',
+            'auth_key' => env('PUSHER_APP_ID'),
+            'secret' => env('PUSHER_APP_KEY'),
+            'app_id' => env('PUSHER_APP_SECRET'),
             'options' => [
                 'cluster' => 'eu',
                 'encrypted' => true

@@ -8,6 +8,7 @@ use App\Message;
 use App\User;
 use App\Conversation;
 use App\Events\MessageSent;
+use JWTAuth;
 
 class MessageController extends Controller
 {
@@ -28,13 +29,12 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'sender_id' => 'required|integer|different:recipient_id',
             'recipient_id' => 'required|integer',
             'conversation_id' => 'required|integer',
             'body' => 'required'
         ]);
 
-        $senderId = $request->input('sender_id');
+        $senderId = JWTAuth::parseToken()->authenticate()->id;
         $recipientId = $request->input('recipient_id');
         $conversationId = $request->input('conversation_id');
         $body = $request->input('body');

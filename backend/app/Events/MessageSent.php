@@ -28,15 +28,12 @@ class MessageSent
     {
         $this->message = $message;
         $this->recipientId = $recipientId;
+        $this->triggerMessage();
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
-     */
-/*    public function broadcastOn()
+    private function triggerMessage()
     {
-        return new PrivateChannel('channel-name');
-    }*/
+        $channelName = 'private-' + $this->recipientId;
+        Pusher::trigger($channelName, 'messageSent', ['message' => $this->message]);
+    }
 }
