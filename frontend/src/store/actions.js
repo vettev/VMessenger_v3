@@ -21,13 +21,16 @@ export default {
         }
     },
     addContact: (state, payload) => {
+        state.dispatch('setLittleLoading', true);
         Vue.http.post('contact', { "user_id": payload }).then(
             response => {
                 state.commit('addContact', response.body.contact);
                 state.dispatch('addAlert', {content: response.body.message, type: "success"});
+                state.dispatch('setLittleLoading', false);
             },
             error => {
                 state.dispatch('addAlerts', error.body);
+                state.dispatch('setLittleLoading', false);
             }
         );
     },

@@ -39,6 +39,9 @@ class ContactController extends Controller
         $userId =  $request->input('user_id');
 
         $owner = JWTAuth::parseToken()->authenticate();
+        if($owner->id == $userId) {
+            return response()->json(['message' => 'You cannot add yourself to contacts'], 422);
+        }
         if($owner->hasUserInContacts($userId)) {
             return response()->json(['message' => 'You have this user in contacts already'], 422);
         }
@@ -47,6 +50,7 @@ class ContactController extends Controller
             'user_id' => $userId
         ]);
         $owner->contacts()->save($contact);
+        $contact->user = $contact->user;
 
         return response()->json(['message' => 'Contact saved', 'contact' => $contact], 201);
     }
