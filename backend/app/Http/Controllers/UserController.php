@@ -58,6 +58,6 @@ class UserController extends Controller
             return response()->json(compact('users'), 200);
         }
 
-        return response()->json(['message' => 'No user resulsts'], 200);
+        return response()->json(['message' => 'No user resulsts', 'users' => []], 200);
     }
 }

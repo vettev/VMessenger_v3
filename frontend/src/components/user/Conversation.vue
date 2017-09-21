@@ -2,6 +2,10 @@
     <v-card class="conversation" transition="slide-y-transition">
         <v-toolbar class="primary">
             <v-toolbar-title>{{ conversation.user.name }}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn flat @click="closeConversation">
+                <v-icon>close</v-icon>
+            </v-btn>
         </v-toolbar>
         <div slot="body" class="conversation-messages">
             <p class="no-message pa-3" v-if="conversation.messages.length == 0">There's no messages yet, write some messages...</p>
@@ -22,6 +26,9 @@
         },
         props: ['conversation'],
         methods: {
+            closeConversation() {
+                this.$store.commit('closeConversation', this.conversation.id);
+            },
             sendMessage() {
                 this.messageBody = "";
             }

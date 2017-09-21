@@ -20,6 +20,17 @@ export default {
             }
         }
     },
+    addContact: (state, payload) => {
+        Vue.http.post('contact', { "user_id": payload }).then(
+            response => {
+                state.commit('addContact', response.body.contact);
+                state.dispatch('addAlert', {content: response.body.message, type: "success"});
+            },
+            error => {
+                state.dispatch('addAlerts', error.body);
+            }
+        );
+    },
     addConversation: (state, payload) => {
         if(state.getters.conversationsCount > 0) {
             if (state.getters.conversationExists(payload.id)) {

@@ -8,6 +8,14 @@
                 fixed
                 class="hidden-md-and-up">
             <v-list>
+                <v-list-tile class="mb-3" v-if="isUserLogged">
+                    <v-list-tile-content class="pt-3">
+                        <v-form @submit.prevent="searchUsers" style="width: 100%">
+                            <v-text-field label="Search users" v-model="searchQuery"></v-text-field>
+                        </v-form>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-divider v-if="isUserLogged"></v-divider>
                 <v-list-tile
                     v-for="(item, i) in items"
                     :key="i"
@@ -15,7 +23,7 @@
                     router
                     :to="item.link">
                     <v-list-tile-action>
-                        <v-icon dark v-html="item.icon"></v-icon>
+                        <v-icon v-html="item.icon"></v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title v-text="item.title"></v-list-tile-title>
@@ -55,9 +63,9 @@
                 <v-btn flat @click.stop="drawerRight = !drawerRight"><v-icon>people</v-icon></v-btn>
             </div>
             <v-toolbar-items class="ml-3 hidden-sm-and-down">
-                <form action="#" @submit.prevent="searchUsers">
+                <v-form @submit.prevent="searchUsers" v-if="isUserLogged">
                     <v-text-field label="Search users" v-model="searchQuery"></v-text-field>
-                </form>
+                </v-form>
                 <v-btn
                     flat
                     v-for="item in items"
@@ -86,7 +94,7 @@
                 </v-btn>
             </v-toolbar-items>
         </v-toolbar>
-        <app-search-results :dialog="searchDialog" :results="searchResults"></app-search-results>
+        <app-search-results :results.sync="searchResults"></app-search-results>
     </v-container>
 </template>
 
@@ -103,7 +111,6 @@
                 title: 'VMessenger',
                 theme: 'dark',
                 searchQuery: '',
-                searchDialog: false,
                 searchResults: [],
             }
         },
@@ -143,13 +150,22 @@
                 this.$store.dispatch('logout');
             },
             searchUsers() {
+                this.searchResults = [];
                 this.$http.post('search', {search_query: this.searchQuery}).then(
                     response => {
                         this.searchQuery = '';
+
+                        if(this.drawer)
+                            this.drawer = false;
+
+                        if(response.body.users.length > 0)
+                            this.searchResults = response.body.users;
+
                         this.$store.dispatch('setDialog', true);
                     }, error => {
                         console.log(error);
-                    });
+                    }
+                );
             }
         }
     }

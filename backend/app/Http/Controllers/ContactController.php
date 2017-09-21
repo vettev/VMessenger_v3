@@ -48,6 +48,6 @@ class ContactController extends Controller
         ]);
         $owner->contacts()->save($contact);
 
-        return response()->json(['message' => 'Contact saved'], 201);
+        return response()->json(['message' => 'Contact saved', 'contact' => $contact], 201);
     }
 }

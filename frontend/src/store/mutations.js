@@ -4,6 +4,16 @@ export default {
         payload.show = true;
         state.alerts.push(payload);
     },
+    addContact: (state, payload) => {
+        state.user.contacts.push(payload);
+    },
+    closeConversation: (state, id) => {
+        function findConversation(element) {
+            return (element.id === id)
+        }
+        let index = state.conversations.findIndex(findConversation);
+        state.conversations.splice(index, 1);
+    },
     removeAlert: (state, id) => {
         function findAlert(element) {
             return (element.id === id)

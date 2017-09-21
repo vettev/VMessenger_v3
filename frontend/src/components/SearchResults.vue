@@ -1,44 +1,51 @@
 <template>
     <div class="dialogs">
-        <v-dialog
-            v-model="dialog"
-            transition="dialog-bottom-transition"
-            :overlay=false>
-            <v-card>
-                <v-toolbar class="primary">
-                    <v-btn icon @click.native="closeDialog" dark>
-                        <v-icon>close</v-icon>
-                    </v-btn>
-                    <v-toolbar-title>Search results</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                    <v-list two-line>
-                        <template v-for="result in results">
-                            <v-list-tile avatar>
-                                <v-subheader v-text="result.name"></v-subheader>
-                            </v-list-tile>
-                        </template>
-                    </v-list>
-                </v-toolbar>
-            </v-card>
-        </v-dialog>
+        <v-layout row justify-center style="position: relative;">
+            <v-dialog
+                v-model="dialog"
+                transition="dialog-bottom-transition"
+                :overlay=true
+                absolute
+                width="60%"
+                :fullscreen="$vuetify.breakpoint.smAndDown">
+                <v-card>
+                    <v-toolbar class="primary">
+                            <v-btn icon @click.native="dialog = false" dark>
+                                <v-icon>close</v-icon>
+                            </v-btn>
+                            <v-toolbar-title>Search results</v-toolbar-title>
+                        </v-toolbar>
+                        <v-spacer></v-spacer>
+                        <v-list two-line>
+                            <app-search-result v-for="result in results" :key="result.id" :result=result></app-search-result>
+                            <p v-if="results.length == 0" class="pa-4">No results</p>
+                        </v-list>
+                </v-card>
+            </v-dialog>
+        </v-layout>
     </div>
 </template>
 <script>
+    import SearchResult from './SearchResult.vue';
+
     export default {
-        props: ['results'],
+        props: ['results', 'searchDialog'],
         data() {
             return {}
         },
+        components: {
+            'app-search-result': SearchResult
+        },
         computed: {
-            dialog() {
-                return this.$store.getters.isDialogOpen;
+            dialog: {
+                get() {
+                    return this.$store.getters.isDialogOpen;
+                },
+                set(value) {
+                    this.$store.dispatch('setDialog', value);
+                }
             }
         },
-        methods: {
-            closeDialog() {
-                this.$store.dispatch('setDialog', false);
-            }
-        }
     }
 </script>
 <style>
