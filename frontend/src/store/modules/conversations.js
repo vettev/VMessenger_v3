@@ -42,17 +42,17 @@ const actions = {
                 state.commit('clearConversations');
             }
         }
-        state.commit('setLittleLoading', true);
+        state.commit('enableLittleLoading');
         Vue.http.post('conversation', { recipient_id: payload.id }).then(
             response => {
                 let conversation = response.body.conversation;
                 conversation.user = payload
                 state.commit('addConversation', conversation);
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             },
             error => {
                console.log(error);
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             }
         )
     },

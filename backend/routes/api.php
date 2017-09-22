@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Vinkla\Pusher\Facades\Pusher;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::post('/search', 'UserController@search');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
+Route::post('/pusher/auth', 'AuthController@pusherAuth');
 Route::get('/user', 'AuthController@getUser');
 
 Route::post('/message', 'MessageController@store');
@@ -32,3 +34,7 @@ Route::get('/conversation/{id}/messages', 'ConversationController@messages');
 Route::resource('contact', 'ContactController', ['only' => [
     'index', 'store', 'update', 'destroy'
 ]]);
+
+Route::get('test', function () {
+    Pusher::trigger('test', 'test-evenet', ['message' => 'test message']);
+});

@@ -55,7 +55,7 @@
             <div class="hidden-md-and-up">
                 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             </div>
-            <router-link to="/" tag="div" style="cursor: pointer">
+            <router-link to="/" tag="div" class="main-logo">
                 <v-toolbar-title v-text="title"></v-toolbar-title>
             </router-link>
             <v-spacer></v-spacer>
@@ -63,7 +63,7 @@
                 <v-btn flat @click.stop="drawerRight = !drawerRight"><v-icon>people</v-icon></v-btn>
             </div>
             <v-toolbar-items class="ml-3 hidden-sm-and-down">
-                <v-form @submit.prevent="searchUsers" v-if="isUserLogged">
+                <v-form @submit.prevent="searchUsers" v-if="isUserLogged" class="mx-3">
                     <v-text-field label="Search users" v-model="searchQuery"></v-text-field>
                 </v-form>
                 <v-btn
@@ -128,6 +128,7 @@
                 ];
                 if(this.isUserLogged) {
                     items = [
+                        { icon: 'settings', title: 'Settings', link: '/settings' },
                     ];
                 }
                 return items;
@@ -162,7 +163,7 @@
                             if(response.body.users.length > 0)
                                 this.searchResults = response.body.users;
 
-                            this.$store.commit('setDialog', true);
+                            this.$store.commit('enableDialog');
                         }, error => {
                             this.$store.dispatch('addAlert', { type: 'error', content: 'Error. Cannot handle search request'});
                         }
@@ -172,3 +173,13 @@
         }
     }
 </script>
+<style lang="scss">
+    .main-logo {
+        cursor: pointer;
+        transition: 0.15s all;
+
+        &:hover {
+            color: #2196f3;
+        }
+    }
+</style>

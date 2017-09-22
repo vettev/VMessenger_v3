@@ -14,6 +14,8 @@ const store = new Vuex.Store({
         loading: false,
         littleLoading: false,
         dialog: false,
+        pusher: null,
+        channel: null
     },
     getters,
     mutations,

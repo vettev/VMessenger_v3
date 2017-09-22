@@ -42,7 +42,10 @@
                     return this.$store.getters.isDialogOpen;
                 },
                 set(value) {
-                    this.$store.commit('setDialog', value);
+                    if(value === true)
+                        this.$store.commit('enableDialog');
+                    else
+                        this.$store.commit('disableDialog');
                 }
             }
         },

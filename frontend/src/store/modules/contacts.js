@@ -36,16 +36,16 @@ const mutations = {
 
 const actions = {
     addContact: (state, payload) => {
-        state.commit('setLittleLoading', true);
+        state.commit('enableLittleLoading');
         Vue.http.post('contact', { "user_id": payload }).then(
             response => {
                 state.commit('addContact', response.body.contact);
                 state.dispatch('addAlert', {content: response.body.message, type: "success"});
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             },
             error => {
                 state.dispatch('addAlerts', error.body);
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             }
         );
     },

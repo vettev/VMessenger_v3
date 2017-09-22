@@ -7,9 +7,8 @@
                 <v-icon>close</v-icon>
             </v-btn>
         </v-toolbar>
-        <div slot="body" class="conversation-messages">
-            <p class="no-message pa-3" v-if="conversation.messages.length == 0">There's no messages yet, write some messages...</p>
-            <p class="message pa-3" v-else v-for="message in conversation.messages">{{ message.body }}</p>
+        <div slot="body">
+            <app-messages :messages="conversation.messages"></app-messages>
             <v-divider></v-divider>
             <form action="#" @submit.prevent="sendMessage" class="px-2">
                 <v-text-field v-model="messageBody" label="Message"></v-text-field>
@@ -18,11 +17,16 @@
     </v-card>
 </template>
 <script>
+    import Messages from './Messages.vue';
+
     export default {
         data() {
             return {
                 messageBody: ""
             }
+        },
+        components: {
+            'app-messages': Messages
         },
         props: ['conversation'],
         methods: {
@@ -30,6 +34,12 @@
                 this.$store.commit('closeConversation', this.conversation.id);
             },
             sendMessage() {
+                /*this.$store.dispatch('sendMessage', {
+                    recipient_id: this.conversation.user.id,
+                    body: this.messageBody,
+                    conversation_id: this.conversation.id
+
+                });*/
                 this.messageBody = "";
             }
         }

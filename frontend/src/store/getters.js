@@ -7,5 +7,11 @@ export default {
     },
     isDialogOpen(state) {
         return state.dialog;
+    },
+    pusher(state) {
+        return state.pusher;
+    },
+    channel(state) {
+        return state.channel;
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 use App\User;
+use Vinkla\Pusher\Facades\Pusher;
+use Vinkla\Pusher\PusherManager;
 
 class AuthController extends Controller
 {
@@ -66,5 +68,10 @@ class AuthController extends Controller
         $contacts = $user->contacts()->get();
 
         return response()->json(compact('user', 'contacts'));
+    }
+
+    public function pusherAuth(Request $request)
+    {
+        return Pusher::socket_auth($request->input('channel_name'), $request->input('socket_id'));
     }
 }

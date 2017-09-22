@@ -28,12 +28,5 @@ class MessageSent
     {
         $this->message = $message;
         $this->recipientId = $recipientId;
-        $this->triggerMessage();
-    }
-
-    private function triggerMessage()
-    {
-        $channelName = 'private-' + $this->recipientId;
-        Pusher::trigger($channelName, 'messageSent', ['message' => $this->message]);
     }
 }

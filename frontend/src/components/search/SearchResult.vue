@@ -17,7 +17,7 @@
         computed: {
             displayButton() {
                 return this.$store.getters.hasUserInContacts(this.result.id) == false
-                && this.result.id !== this.$store.getters.user.id ;
+                && this.result.id !== this.$store.getters.user.id;
             },
             loading() {
                 return this.$store.getters.isLittleLoadingActive;

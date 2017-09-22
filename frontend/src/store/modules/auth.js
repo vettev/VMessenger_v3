@@ -36,11 +36,12 @@ const actions = {
         state.dispatch('setToken', payload.token);
         state.commit('loadContacts', payload.contacts);
         state.commit('setUser', payload.user);
+        state.commit('loadChannel', payload.user.id);
     },
     loadUser: (state) => {
         let token = localStorage.getItem('token');
         if(token !== null && state.getters.isUserLogged === false) {
-            state.commit('setLoading', true);
+            state.commit('enableLoading');
             Vue.http.get('user?token=' + token).then(
                 response => {
                     state.dispatch('setUser', { 
@@ -49,17 +50,17 @@ const actions = {
                         contacts: response.body.contacts 
                     });
                     state.dispatch('setToken', token);
-                    state.commit('setLoading', false);
+                    state.commit('disableLoading');
                 },
                 () => {
                     localStorage.removeItem('token');
-                    state.commit('setLoading', false);
+                    state.commit('disableLoading');
                 }
             );
         }
     },
     login: (state, payload) => {
-        state.commit('setLittleLoading', true);
+        state.commit('enableLittleLoading');
         state.commit('clearAlerts');
         Vue.http.post('login', {email: payload.email, password: payload.password}).then(
             response => {
@@ -69,16 +70,16 @@ const actions = {
                         contacts: response.body.contacts 
                     });
                 state.dispatch('addAlert', {content: 'Login successful', type: "success"});
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             },
             error => {
                 state.dispatch('addAlerts', error.body)
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             }
         );
     },
     register: (state, payload) => {
-        state.commit('setLittleLoading', true);
+        state.commit('enableLittleLoading');
         state.commit('clearAlerts');
         Vue.http.post('register', {
             email: payload.email,
@@ -89,12 +90,12 @@ const actions = {
             response => {
                 state.dispatch('setUser', { user: response.body.user, token: response.body.token, contacts: []});
                 state.dispatch('addAlert', {content: response.body.message, type: "success"});
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
                 router.push('/');
             },
             error => {
                 state.dispatch('addAlerts', error.body)
-                state.commit('setLittleLoading', false);
+                state.commit('disableLittleLoading');
             }
         );
     },

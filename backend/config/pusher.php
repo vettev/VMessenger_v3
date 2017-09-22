@@ -45,7 +45,7 @@ return [
             'app_id' => env('PUSHER_APP_SECRET'),
             'options' => [
                 'cluster' => 'eu',
-                'encrypted' => true
+                'encrypted' => true,
             ],
             'host' => null,
             'port' => null,

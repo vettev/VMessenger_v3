@@ -27,9 +27,7 @@ class MessageSentListener
      */
     public function handle(MessageSent $event)
     {
-        // wyslanie pushera
-        Pusher::trigger('test-channel', 'message', [
-           'message' => $event->message
-        ]);
+        $channelName = 'private-' . $event->recipientId;
+        Pusher::trigger($channelName, 'messageSent', ['message' => $event->message]);
     }
 }
