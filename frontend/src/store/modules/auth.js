@@ -36,7 +36,17 @@ const actions = {
         state.dispatch('setToken', payload.token);
         state.commit('loadContacts', payload.contacts);
         state.commit('setUser', payload.user);
-        state.commit('loadChannel', payload.user.id);
+        const broadcasting = new Vue({
+            created() {
+                this.$echo.options.auth.headers['Authorization'] = "Bearer " + state.token
+            },
+            channel: 'private:user-' + payload.user.id,
+            echo: {
+                'MessageSent': (payload, vm) => {
+                    console.log(payload);
+                }
+            }
+        })
     },
     loadUser: (state) => {
         let token = localStorage.getItem('token');

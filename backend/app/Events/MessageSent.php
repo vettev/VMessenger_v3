@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MessageSent
+class MessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -28,5 +28,10 @@ class MessageSent
     {
         $this->message = $message;
         $this->recipientId = $recipientId;
+    }
+
+    public function broadcastOn()
+    {
+        return new PrivateChannel('user-' . $this->recipientId);
     }
 }

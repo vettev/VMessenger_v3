@@ -69,9 +69,4 @@ class AuthController extends Controller
 
         return response()->json(compact('user', 'contacts'));
     }
-
-    public function pusherAuth(Request $request)
-    {
-        return Pusher::socket_auth($request->input('channel_name'), $request->input('socket_id'));
-    }
 }

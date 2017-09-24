@@ -35,6 +35,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        \Broadcast::routes(['middleware' => ['api', 'jwt.auth'], 'prefix' => 'api/v1']);
+
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
